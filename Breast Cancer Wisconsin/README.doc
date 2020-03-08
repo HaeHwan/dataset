@@ -1,0 +1,127 @@
+		Wisconsin Breast Cancer Database (WBCD)
+			January 8, 1991
+		    Revised Nomeber 3, 1994
+
+This is a description of the Wisconsin Breast Cancer Database, collected
+by Dr. William H. Wolberg, University of Wisconsin Hospitals, Madison.
+The actual database is contained in another file (datacum). 
+Samples were collected periodically as Dr. Wolberg reported his 
+clinical cases. The database therefore reflects this chronological 
+grouping of the data. The samples consist of 
+visually assessed nuclear features of fine needle aspirates (FNAs) taken from
+patients' breasts. Each sample has been assigned a 9-dimensional
+vector (attributes 3 to 9 below) by Dr. wolberg. Each component
+is in the interval 1 to 10, with value 1 corresponding to a normal 
+state and 10 to a most abnormal state. Attribute 1 is 
+sample number, while attribute 2 designates whether the sample
+is benign or malignant. Malignancy is determined by taking
+a sample tissue from the patient's breast and performing a biopsy
+on it. A benign diagnosis is confirmed either by biopsy or by periodic
+examination, depending on the patient's choice.
+
+All groups are in the same file.  We have separated the groups
+with a line beginning with ##### and the number of points in that group.  
+There are 11 attributes per data point, with one data point per line.
+Attribute are separated by a commas.  The attributes are as follows:
+ 
+   Field         Attribute
+
+   1             Sample code number
+   2             Class: 2 for benign, 4 for malignant
+   3             Clump Thickness
+   4             Uniformity of Cell Size
+   5             Uniformity of Cell Shape
+   6             Marginal Adhesion
+   7             Single Epithelial Cell Size
+   8             Bare Nuclei
+   9             Bland Chromatin
+  10             Normal Nucleoli
+  11             Mitoses
+
+We have used attributes 3 to 11 to form a 9-dimensional vector
+representing each case as a point in 9-dimensional real space.
+This 9-dimensional vector was used to obtain a piecewise-linear
+surface or equivalently a neural network to discriminate
+between benign and malignant samples. A single plane separation
+or equivalently a perceptron gives an accuracy of over 97% and is 
+given below.
+
+Note that in Groups 1 to 6 there are 17 samples each with a zero 
+component. The zero represents UNAVAILABILITY of that attribute for 
+the particular sample and does NOT represent a zero level for that 
+attribute. Therefore these 19 samples may be discarded or treated 
+in a special way.
+
+If you use the data in any publication, please cite  one or more of
+the following:
+
+1. O. L. Mangasarian and W. H. Wolberg: "Cancer diagnosis via linear 
+   programming", SIAM News, Volume 23, Number 5, September 1990, pp 1 & 18.
+
+2. William H. Wolberg and O.L. Mangasarian: "Multisurface method of 
+   pattern separation for medical diagnosis applied to breast cytology", 
+   Proceedings of the National Academy of Sciences, U.S.A., Volume 87, 
+   December 1990, pp 9193-9196.
+
+3. O. L. Mangasarian, R. Setiono, and W.H. Wolberg: "Pattern recognition via 
+   linear programming: Theory and application to medical diagnosis", in: 
+   "Large-scale numerical optimization", Thomas F. Coleman and Yuying Li, 
+   editors, SIAM Publications, Philadelphia 1990, pp 22-30.
+
+4. K. P. Bennett & O. L. Mangasarian: "Robust linear programming discrimination
+   of two linearly inseparable sets", Optimization Methods and Software 1,
+   1992, 23-34 (Gordon & Breach Science Publishers).
+
+5. O. L. Mangasarian: ""Mathematical programming in neural networks",
+   ORSA Journal on Computing 5, 1993, 349-360.
+
+
+                           SINGLE PLANE SEPARATION
+			   ----------------------
+
+By using the linear program from Reference 4 above on 
+682 samples from  the Wisconsin Breast Cancer Database (WBCD), 
+the following typical plane was found:
+
+
+   w1=(.303, -.0087, .227, .210, .0096, .230, .16, .126, .304,-5.14).
+
+The accuracy on the data using w1 was 97.7%. Normalizing and rounding these
+coefficients we have:
+
+   w2=(3, 0, 2, 2, 0,  2, 2, 1, 3,-50)
+
+
+The accuracy on the data using w2 was 97.5%. The way to use this plane
+is as follows:
+
+If w2*x >= 50 then malignant
+
+If w2*x <  50 then benign
+
+Here x is the 9-dimensional vector of features from the WBCD, that is the nine 
+last numbers in each row.  
+
+NOTE:   16 points with missing attributes (indicated by a 0)
+and 1 outlying point were not used in training. Specifially,
+the following 17 points from the 699 points of WBCD  were removed:
+
+4 8 4 5 1 2 0 7 3 1
+2 6 6 6 9 6 0 7 8 1
+2 1 1 1 1 1 0 2 1 1
+2 1 1 3 1 2 0 2 1 1
+2 1 1 2 1 3 0 1 1 1
+2 5 1 1 1 2 0 3 1 1
+2 3 1 4 1 2 0 3 1 1
+2 3 1 1 1 2 0 3 1 1
+2 3 1 3 1 2 0 2 1 1
+4 8 8 8 1 2 0 6 10 1
+2 1 1 1 1 2 0 2 1 1
+2 5 4 3 1 2 0 2 3 1
+2 4 6 5 6 7 0 4 9 1
+2 3 1 1 1 2 0 3 1 1
+2 1 1 1 1 1 0 1 1 1
+2 1 1 1 1 1 0 2 1 1
+2 8 4 4 5 4 7 7 8 2
+
+---------------------------------------------------------------------------
