@@ -1,4 +1,5 @@
 https://github.com/dotnet/machinelearning/blob/master/test/data/breast-cancer.txt
+유방암 양성과 음성을 판별하는 데이터
 
 		Wisconsin Breast Cancer Database (WBCD)
 			January 8, 1991
