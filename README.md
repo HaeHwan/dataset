@@ -19,3 +19,5 @@
  - Hypo
  - Sick
  - Vowel0
+
+![initial](https://user-images.githubusercontent.com/54100174/124717040-b787dc00-df3f-11eb-8e5d-4ea2ddc0806b.PNG)
